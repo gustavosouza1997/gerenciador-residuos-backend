@@ -2,21 +2,6 @@ import { auth } from "../config/firebaseConfig";
 import { signInWithEmailAndPassword, signOut  } from "firebase/auth";
 import { Request, Response } from "express";
 
-/*const email = process.env.FIREBASE_AUTH_EMAIL;
-const password = process.env.FIREBASE_AUTH_PASSWORD;
-
-if (email && password) {
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      console.log("O usuário está autenticado");
-    })
-    .catch((error) => {
-      console.log("Erro ao autenticar usuário:", error);
-    });
-} else {
-  console.log("FIREBASE_AUTH_EMAIL ou FIREBASE_AUTH_PASSWORD não estão definidos");
-}*/
-
 export class AuthController {
   public async login(req: Request, res: Response): Promise<Response> {
     const { email, password } = req.body;
