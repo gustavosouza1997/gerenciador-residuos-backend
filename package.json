@@ -1,0 +1,30 @@
+{
+  "name": "gerenciador_residuos_backend",
+  "version": "1.0.0",
+  "description": "Um gerenciador de resíduos utilizado pela empresa Calçados Padilha LTDA",
+  "main": "server.ts",
+  "scripts": {
+    "test": "npx ts-node src/server.ts",
+    "start": "npx ts-node src/server.ts"
+  },
+  "author": "GustavoSouza",
+  "license": "ISC",
+  "dependencies": {
+    "@firebase/firestore": "^4.7.4",
+    "@paralleldrive/cuid2": "^2.2.2",
+    "axios": "^1.7.7",
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "firebase": "^11.0.1",
+    "firebase-admin": "^12.7.0"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.19.5",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
+  }
+}
