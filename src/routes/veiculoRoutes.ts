@@ -15,7 +15,7 @@ veiculosRoutes.post("/", authenticate, async (req: Request, res: Response, next:
 
 veiculosRoutes.get("/", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        await veiculoController.getVeiculoById(req, res);
+        await veiculoController.getVeiculoByField(req, res);
     } catch (err) {
         next(err);
     }  

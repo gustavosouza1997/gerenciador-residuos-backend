@@ -5,7 +5,7 @@ export class PessoaJuridica extends Pessoa {
     private razaoSocial: string;
 
     constructor (razaoSocial: string, cnpj: string, endereco: string, telefone: string, email: string, transportador: boolean, gerador: boolean, destinador: boolean) {
-        super(undefined, endereco, telefone, email, transportador, gerador, destinador);
+        super(endereco, telefone, email, transportador, gerador, destinador);
         this.razaoSocial = razaoSocial;
         this.cnpj = cnpj;
     }

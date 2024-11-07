@@ -1,7 +1,4 @@
-import { createId } from "@paralleldrive/cuid2";
-
 export abstract class Pessoa {
-    //private id?: string;
     private endereco: string;
     private telefone: string;
     private email: string;
@@ -9,8 +6,7 @@ export abstract class Pessoa {
     private gerador: boolean;
     private destinador: boolean;    
 
-    constructor(id: string = createId(), endereco: string, telefone: string, email: string, transportador: boolean, gerador: boolean, destinador: boolean) {
-        //this.id = id;
+    constructor(endereco: string, telefone: string, email: string, transportador: boolean, gerador: boolean, destinador: boolean) {
         this.endereco = endereco;
         this.telefone = telefone;
         this.email = email;
@@ -18,10 +14,6 @@ export abstract class Pessoa {
         this.gerador = gerador;
         this.destinador = destinador;
     }
-
-    /*public getId(): string | undefined {
-        return this.id;
-    }*/
 
     public getEndereco(): string {
         return this.endereco;
@@ -73,7 +65,6 @@ export abstract class Pessoa {
 
     public toPlainObject(): object {
         return {
-            //id: this.id,
             endereco: this.endereco,
             telefone: this.telefone,
             email: this.email,

@@ -18,7 +18,7 @@ class MTRService {
 
     constructor(environment: "production" | "homologation") {
         this.apiUrl =
-            environment === "homologation"
+            environment === "production"
                 ? "https://mtr.fepam.rs.gov.br/mtrservice"
                 : "https://miramichi.procergs.com.br/mtrservice";
     }
@@ -30,15 +30,12 @@ class MTRService {
         cnp: string
     ): Promise<T | undefined> {
         console.log("Consultando a API MTR:", endpoint, login, senha, cnp);
-        console.log(`${this.apiUrl}/${endpoint}/${login}/${senha}/${cnp}`);
         try {
             const response = await axios.post<ApiResponse>(
                 `${this.apiUrl}/${endpoint}/${login}/${senha}/${cnp}`,
                 {},
                 { headers: { "Content-Type": "application/json" } }
             );
-
-            console.log("Resposta completa:", response); // Log da resposta completa
 
             if (response.status = 200) {
                 const data = response.data;

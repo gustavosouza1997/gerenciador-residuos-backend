@@ -33,8 +33,8 @@ export class PessoaController {
       res.status(400).json({ error: "É necessário informar um campo e valor" });
     }
 
-    const Pessoa = await this.pessoaDAO.findPessoaByField(field, value);
-    Pessoa ? res.json(Pessoa) : res.status(404).json({ error: "Pessoa not found" });
+    const pessoa = await this.pessoaDAO.findPessoaByField(field, value);
+    pessoa ? res.json(pessoa) : res.status(404).json({ error: "Pessoa not found" });
   }
 
   public async updatePessoa(req: Request, res: Response): Promise<void> {

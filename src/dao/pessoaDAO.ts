@@ -42,10 +42,7 @@ export class PessoaDAO {
       
       const pessoaData = docSnapshot.data();
       if (pessoaData) {
-        return {
-          id: docSnapshot.id,
-          ...pessoaData
-        } as unknown as Pessoa;
+        return {id: docSnapshot.id, ...pessoaData} as unknown as Pessoa;
       }
     }
     return null;
@@ -81,8 +78,7 @@ export class PessoaDAO {
     } else {
       console.log("Nenhum documento encontrado para exclusão.");
     }
-  }
-  
+  }  
 
   async getAllPessoas(): Promise<Pessoa[]> {
     const snapshot = await getDocs(collectionPessoa);

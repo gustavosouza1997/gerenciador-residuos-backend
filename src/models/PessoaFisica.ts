@@ -6,7 +6,7 @@ export class PessoaFisica extends Pessoa {
     private motorista: boolean;
 
     constructor(nome: string, cpf: string, endereco: string, telefone: string, email: string, transportador: boolean, gerador: boolean, destinador: boolean, motorista: boolean) {
-        super(undefined, endereco, telefone, email, transportador, gerador, destinador);        
+        super(endereco, telefone, email, transportador, gerador, destinador);        
         this.nome = nome;
         this.cpf = cpf;
         this.motorista = motorista;
