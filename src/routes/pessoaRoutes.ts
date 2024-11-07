@@ -1,10 +1,11 @@
-import { Router } from "express";
+import { Router, Request, Response, NextFunction } from "express";
 import { PessoaController } from "../controllers/pessoaController";
+import { authenticate } from '../middleware/authenticate';
 
 const pessoaRoutes = Router();
 const pessoaController = new PessoaController();
 
-pessoaRoutes.post("/", async (req, res, next) => {
+pessoaRoutes.post("/", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         await pessoaController.createPessoa(req, res);
     } catch (err) {
@@ -12,7 +13,7 @@ pessoaRoutes.post("/", async (req, res, next) => {
     }  
 });
 
-pessoaRoutes.get("/:value", async (req, res, next) => {
+pessoaRoutes.get("/", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         await pessoaController.getPessoaByField(req, res);
     } catch (err) {
@@ -20,9 +21,7 @@ pessoaRoutes.get("/:value", async (req, res, next) => {
     }  
 });
 
-pessoaRoutes.put("/:value", async (req, res, next) => {
-    console.log("UpdatePessoa " + req.params.value);
-    
+pessoaRoutes.put("/:value", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         await pessoaController.updatePessoa(req, res);
     } catch (err) {
@@ -30,7 +29,7 @@ pessoaRoutes.put("/:value", async (req, res, next) => {
     }  
 });
 
-pessoaRoutes.delete("/:value", async (req, res, next) => {
+pessoaRoutes.delete("/", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         await pessoaController.deletePessoa(req, res);
     } catch (err) {
@@ -38,7 +37,7 @@ pessoaRoutes.delete("/:value", async (req, res, next) => {
     }  
 });
 
-pessoaRoutes.get("/", async (req, res, next) => {
+pessoaRoutes.get("/listar", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         await pessoaController.getAllPessoas(req, res);
     } catch (err) {
