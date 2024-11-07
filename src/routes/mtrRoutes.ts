@@ -1,10 +1,11 @@
-import { Router } from "express";
+import { Router, Request, Response, NextFunction } from "express";
 import { MTRController } from "../controllers/mtrController";
+import { authenticate } from '../middleware/authenticate';
 
 const mtrRoutes = Router();
 const mtrController = new MTRController();
 
-mtrRoutes.post("/", async (req, res, next) => {
+mtrRoutes.post("/", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
 	await mtrController.enviarManifesto(req, res);
   } catch (err) {
@@ -12,7 +13,7 @@ mtrRoutes.post("/", async (req, res, next) => {
   }
 });
 
-mtrRoutes.get("/acondicionamento", async (req, res, next) => {
+mtrRoutes.get("/acondicionamento", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     await mtrController.getListaAcondicionamento(req, res);
   } catch (err) {
@@ -20,7 +21,7 @@ mtrRoutes.get("/acondicionamento", async (req, res, next) => {
   }
 });
 
-mtrRoutes.get("/classe", async (req, res, next) => {
+mtrRoutes.get("/classe", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     await mtrController.getListaClasse(req, res);
   } catch (err) {
@@ -28,7 +29,7 @@ mtrRoutes.get("/classe", async (req, res, next) => {
   }
 });
 
-mtrRoutes.get("/estadoFisico", async (req, res, next) => {
+mtrRoutes.get("/estadoFisico", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     await mtrController.getListaEstadoFisico(req, res);
   } catch (err) {
@@ -36,7 +37,7 @@ mtrRoutes.get("/estadoFisico", async (req, res, next) => {
   }
 });
 
-mtrRoutes.get("/residuo", async (req, res, next) => {
+mtrRoutes.get("/residuo", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     await mtrController.getListaResiduo(req, res);
   } catch (err) {
@@ -44,7 +45,7 @@ mtrRoutes.get("/residuo", async (req, res, next) => {
   }
 });
 
-mtrRoutes.get("/tecnologia", async (req, res, next) => {
+mtrRoutes.get("/tecnologia", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     await mtrController.getListaTecnologia(req, res);
   } catch (err) {
@@ -52,7 +53,7 @@ mtrRoutes.get("/tecnologia", async (req, res, next) => {
   }
 });
 
-mtrRoutes.get("/unidade", async (req, res, next) => {
+mtrRoutes.get("/unidade", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     await mtrController.getListaUnidade(req, res);
   } catch (err) {

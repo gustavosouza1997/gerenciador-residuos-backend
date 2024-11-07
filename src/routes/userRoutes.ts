@@ -1,10 +1,11 @@
-import { Router } from "express";
+import { Router, Request, Response, NextFunction } from "express";
 import { UserController } from "../controllers/userController";
+import { authenticate } from '../middleware/authenticate';
 
 const userRoutes = Router();
 const userController = new UserController();
 
-userRoutes.post("/", async (req, res, next) => {
+userRoutes.post("/", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
 	await userController.createUser(req, res);
   } catch (err) {
@@ -12,7 +13,7 @@ userRoutes.post("/", async (req, res, next) => {
   }
 });
 
-userRoutes.get("/:id", async (req, res, next) => {
+userRoutes.get("/:id", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
 	await userController.getUserById(req, res);
   } catch (err) {
@@ -20,7 +21,7 @@ userRoutes.get("/:id", async (req, res, next) => {
   }
 });
 
-userRoutes.put("/:id", async (req, res, next) => {
+userRoutes.put("/:id", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
 	await userController.updateUser(req, res);
   } catch (err) {
@@ -28,7 +29,7 @@ userRoutes.put("/:id", async (req, res, next) => {
   }
 });
 
-userRoutes.delete("/:id", async (req, res, next) => {
+userRoutes.delete("/:id", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
 	await userController.deleteUser(req, res);
   } catch (err) {
@@ -36,7 +37,7 @@ userRoutes.delete("/:id", async (req, res, next) => {
   }
 });
 
-userRoutes.get("/", async (req, res, next) => {
+userRoutes.get("/", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
 	await userController.getAllUsers(req, res);
   } catch (err) {

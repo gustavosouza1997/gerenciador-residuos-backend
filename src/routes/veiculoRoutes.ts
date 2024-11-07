@@ -1,10 +1,11 @@
-import { Router } from "express";
+import { Router, Request, Response, NextFunction } from "express";
 import { VeiculoController } from "../controllers/veiculoController";
+import { authenticate } from '../middleware/authenticate';
 
 const veiculosRoutes = Router();
 const veiculoController = new VeiculoController();
 
-veiculosRoutes.post("/", async (req, res, next) => {
+veiculosRoutes.post("/", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         await veiculoController.createVeiculo(req, res);
     } catch (err) {
@@ -12,7 +13,7 @@ veiculosRoutes.post("/", async (req, res, next) => {
     }  
 });
 
-veiculosRoutes.get("/", async (req, res, next) => {
+veiculosRoutes.get("/", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         await veiculoController.getVeiculoById(req, res);
     } catch (err) {
@@ -20,7 +21,7 @@ veiculosRoutes.get("/", async (req, res, next) => {
     }  
 });
 
-veiculosRoutes.put("/:id", async (req, res, next) => {
+veiculosRoutes.put("/", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         await veiculoController.updateVeiculo(req, res);
     } catch (err) {
@@ -28,7 +29,7 @@ veiculosRoutes.put("/:id", async (req, res, next) => {
     }  
 });
 
-veiculosRoutes.delete("/:id", async (req, res, next) => {
+veiculosRoutes.delete("/", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         await veiculoController.deleteVeiculo(req, res);
     } catch (err) {
@@ -36,7 +37,7 @@ veiculosRoutes.delete("/:id", async (req, res, next) => {
     }  
 });
 
-veiculosRoutes.get("/", async (req, res, next) => {
+veiculosRoutes.get("/listar", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         await veiculoController.getAllVeiculos(req, res);
     } catch (err) {
