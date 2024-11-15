@@ -27,8 +27,6 @@ export class PessoaController {
   public async getPessoaByField(req: Request, res: Response): Promise<void> {
     const { field, value } = req.body;
 
-    console.log("getPessoa "+ field, value);    
-
     if (!field || !value) {
       res.status(400).json({ error: "É necessário informar um campo e valor" });
     }
@@ -39,8 +37,6 @@ export class PessoaController {
 
   public async updatePessoa(req: Request, res: Response): Promise<void> {
     const { field, value } = req.body;
-    
-    console.log("UpdatePessoa " + field, value);   
     
     if (!field || !value) {
       res.status(400).json({ error: "É necessário informar um campo e valor" });

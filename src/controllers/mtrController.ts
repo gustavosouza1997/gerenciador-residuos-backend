@@ -45,6 +45,6 @@ export class MTRController {
     }
 
     public enviarManifesto(req: Request, res: Response): Promise<Response> {
-        return this.handleRequest(req, res, this.mtrService.enviarLoteManifesto, "Erro ao consultar unidades");
+        return this.handleRequest(req, res, this.mtrService.enviarLoteManifesto, "Erro ao enviar o manifesto");
     }
 }

@@ -17,8 +17,6 @@ export class VeiculoController {
   public async getVeiculoByField(req: Request, res: Response): Promise<Response> {
     const { field, value } = req.body;
 
-    console.log("getPessoa "+ field, value);    
-
     if (!field || !value) {
       res.status(400).json({ error: "É necessário informar um campo e valor" });
     }
@@ -29,8 +27,6 @@ export class VeiculoController {
 
   public async updateVeiculo(req: Request, res: Response): Promise<Response> {
     const { field, value } = req.body;
-
-    console.log("getPessoa "+ field, value);    
 
     if (!field || !value) {
       res.status(400).json({ error: "É necessário informar um campo e valor" });
@@ -43,9 +39,7 @@ export class VeiculoController {
 
   public async deleteVeiculo(req: Request, res: Response): Promise<Response> {
     const { field, value } = req.body;
-
-    console.log("getPessoa "+ field, value);    
-
+    
     if (!field || !value) {
       res.status(400).json({ error: "É necessário informar um campo e valor" });
     }

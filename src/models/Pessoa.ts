@@ -15,53 +15,53 @@ export abstract class Pessoa {
         this.destinador = destinador;
     }
 
-    public getEndereco(): string {
-        return this.endereco;
-    }
+    // public getEndereco(): string {
+    //     return this.endereco;
+    // }
 
-    public setEndereco(endereco: string): void {
-        this.endereco = endereco;
-    }
+    // public setEndereco(endereco: string): void {
+    //     this.endereco = endereco;
+    // }
 
-    public getTelefone(): string {
-        return this.telefone;
-    }
+    // public getTelefone(): string {
+    //     return this.telefone;
+    // }
 
-    public setTelefone(telefone: string): void {
-        this.telefone = telefone;
-    }
+    // public setTelefone(telefone: string): void {
+    //     this.telefone = telefone;
+    // }
 
-    public getEmail(): string {
-        return this.email;
-    }
+    // public getEmail(): string {
+    //     return this.email;
+    // }
 
-    public setEmail(email: string): void {
-        this.email = email;
-    }
+    // public setEmail(email: string): void {
+    //     this.email = email;
+    // }
 
-    public isTransportador(): boolean {
-        return this.transportador;
-    }
+    // public isTransportador(): boolean {
+    //     return this.transportador;
+    // }
 
-    public setTransportador(transportador: boolean): void {
-        this.transportador = transportador;
-    }
+    // public setTransportador(transportador: boolean): void {
+    //     this.transportador = transportador;
+    // }
 
-    public isGerador(): boolean {
-        return this.gerador;
-    }
+    // public isGerador(): boolean {
+    //     return this.gerador;
+    // }
 
-    public setGerador(gerador: boolean): void {
-        this.gerador = gerador;
-    }
+    // public setGerador(gerador: boolean): void {
+    //     this.gerador = gerador;
+    // }
 
-    public isDestinador(): boolean {
-        return this.destinador;
-    }
+    // public isDestinador(): boolean {
+    //     return this.destinador;
+    // }
 
-    public setDestinador(destinador: boolean): void {
-        this.destinador = destinador;
-    }
+    // public setDestinador(destinador: boolean): void {
+    //     this.destinador = destinador;
+    // }
 
     public toPlainObject(): object {
         return {

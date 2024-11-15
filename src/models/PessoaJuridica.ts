@@ -10,21 +10,21 @@ export class PessoaJuridica extends Pessoa {
         this.cnpj = cnpj;
     }
 
-    getRazaoSocial(): string {
-        return this.razaoSocial;
-    }
+    // getRazaoSocial(): string {
+    //     return this.razaoSocial;
+    // }
 
-    setRazaoSocial(razaoSocial: string): void {
-        this.razaoSocial = razaoSocial;
-    }
+    // setRazaoSocial(razaoSocial: string): void {
+    //     this.razaoSocial = razaoSocial;
+    // }
 
-    getCnpj(): string {
-        return this.cnpj;
-    }
+    // getCnpj(): string {
+    //     return this.cnpj;
+    // }
 
-    setCnpj(cnpj: string): void {
-        this.cnpj = cnpj;
-    }
+    // setCnpj(cnpj: string): void {
+    //     this.cnpj = cnpj;
+    // }
 
     public toPlainObject(): object {
         return {

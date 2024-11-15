@@ -55,9 +55,9 @@ export class VeiculoDAO {
       const documentRef = querySnapshot.docs[0]?.ref;
       if (documentRef) {
         await updateDoc(documentRef, veiculo);
-        console.log("Veiculo atualizada com sucesso.");
+        console.log("Veiculo atualizado com sucesso.");
       } else {
-        console.log("Veiculo não encontrada para atualização.");
+        console.log("Veiculo não encontrado para atualização.");
       }
     }
   }
@@ -70,9 +70,9 @@ export class VeiculoDAO {
       const documentRef = querySnapshot.docs[0]?.ref;
       if (documentRef) {
         await deleteDoc(documentRef);
-        console.log("Veiculo excluída com sucesso.");
+        console.log("Veiculo excluído com sucesso.");
       } else {
-        console.log("Veiculo não encontrada para exclusão.");
+        console.log("Veiculo não encontrado para exclusão.");
       }
     } else {
       console.log("Nenhum documento encontrado para exclusão.");
