@@ -13,7 +13,7 @@ mtrRoutes.post("/", authenticate, async (req: Request, res: Response, next: Next
   }
 });
 
-mtrRoutes.get("/acondicionamento", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+mtrRoutes.post("/acondicionamento", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     await mtrController.getListaAcondicionamento(req, res);
   } catch (err) {
@@ -21,7 +21,7 @@ mtrRoutes.get("/acondicionamento", authenticate, async (req: Request, res: Respo
   }
 });
 
-mtrRoutes.get("/classe", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+mtrRoutes.post("/classe", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     await mtrController.getListaClasse(req, res);
   } catch (err) {
@@ -29,7 +29,7 @@ mtrRoutes.get("/classe", authenticate, async (req: Request, res: Response, next:
   }
 });
 
-mtrRoutes.get("/estadoFisico", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+mtrRoutes.post("/estadoFisico", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     await mtrController.getListaEstadoFisico(req, res);
   } catch (err) {
@@ -37,7 +37,7 @@ mtrRoutes.get("/estadoFisico", authenticate, async (req: Request, res: Response,
   }
 });
 
-mtrRoutes.get("/residuo", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+mtrRoutes.post("/residuo", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     await mtrController.getListaResiduo(req, res);
   } catch (err) {
@@ -45,7 +45,7 @@ mtrRoutes.get("/residuo", authenticate, async (req: Request, res: Response, next
   }
 });
 
-mtrRoutes.get("/tecnologia", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+mtrRoutes.post("/tecnologia", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     await mtrController.getListaTecnologia(req, res);
   } catch (err) {
@@ -53,7 +53,7 @@ mtrRoutes.get("/tecnologia", authenticate, async (req: Request, res: Response, n
   }
 });
 
-mtrRoutes.get("/unidade", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+mtrRoutes.post("/unidade", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     await mtrController.getListaUnidade(req, res);
   } catch (err) {

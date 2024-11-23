@@ -15,7 +15,7 @@ export class ResiduoController {
         codigoTipoEstado,
         codigoUnidade,
         manifestoItemObservacao,
-        dataCriação,
+        dataCriacao,
         dataEnvio,
         codManifesto
     } = req.body;
@@ -29,7 +29,7 @@ export class ResiduoController {
         codigoTipoEstado,
         codigoUnidade,
         manifestoItemObservacao || null,
-        dataCriação,
+        dataCriacao,
         dataEnvio || null,
         codManifesto || null
     );
@@ -63,18 +63,29 @@ export class ResiduoController {
   }
 
   public async deleteResiduo(req: Request, res: Response): Promise<Response> {
-    const { field, value } = req.body;
+    const { id } = req.params;
 
-    if (!field || !value) {
-      res.status(400).json({ error: "É necessário informar um campo e valor" });
+    if (!id) {
+      res.status(400).json({ error: "É necessário informar um id" });
     }
 
-    await this.residuoDAO.deleteResiduo(field, value);
-    return res.status(204).send();
+    if (id) {
+      await this.residuoDAO.deleteResiduo(id);
+    } else {
+      return res.status(400).json({ error: "É necessário informar um id válido" });
+    }
+
+    return res.status(200).send();
   }
 
   public async getAllResiduos(req: Request, res: Response): Promise<Response> {
     const residuos = await this.residuoDAO.getAllResiduos();
     return res.json(residuos);
   }
+
+  public async getResiduosNaoEnviados(req: Request, res: Response): Promise<Response> {
+    const residuos = await this.residuoDAO.getAllResiduos();
+    const naoEnviados = residuos.filter(residuo => !residuo.dataEnvio);
+    return res.json(naoEnviados);
+}
 }

@@ -29,7 +29,6 @@ class MTRService {
         senha: string,
         cnp: string
     ): Promise<T | undefined> {
-        console.log("Consultando a API MTR:", endpoint, login, senha, cnp);
         try {
             const response = await axios.post<ApiResponse>(
                 `${this.apiUrl}/${endpoint}/${login}/${senha}/${cnp}`,

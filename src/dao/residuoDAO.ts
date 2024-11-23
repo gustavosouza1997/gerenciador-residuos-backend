@@ -62,20 +62,14 @@ export class ResiduoDAO {
     }
   }
 
-  async deleteResiduo(fieldName: string, value: string): Promise<void> {
-    const q = query(collectionResiduo, where(fieldName, "==", value));
-    const querySnapshot = await getDocs(q);
-  
-    if (!querySnapshot.empty) {
-      const documentRef = querySnapshot.docs[0]?.ref;
-      if (documentRef) {
-        await deleteDoc(documentRef);
-        console.log("Residuo excluído com sucesso.");
-      } else {
-        console.log("Residuo não encontrado para exclusão.");
-      }
-    } else {
-      console.log("Nenhum documento encontrado para exclusão.");
+  async deleteResiduo(id: string): Promise<void> {
+    const documentRef = doc(collectionResiduo, id);
+
+    try {
+      await deleteDoc(documentRef);
+      console.log("Resíduo excluído com sucesso.");
+    } catch (error) {
+      console.error("Erro ao excluir residuo:", error);
     }
   }
 
