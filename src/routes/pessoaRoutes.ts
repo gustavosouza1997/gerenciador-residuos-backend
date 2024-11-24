@@ -13,15 +13,7 @@ pessoaRoutes.post("/", authenticate, async (req: Request, res: Response, next: N
     }  
 });
 
-pessoaRoutes.get("/", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    try {
-        await pessoaController.getPessoaByField(req, res);
-    } catch (err) {
-        next(err);
-    }  
-});
-
-pessoaRoutes.put("/:value", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+pessoaRoutes.put("/:id", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         await pessoaController.updatePessoa(req, res);
     } catch (err) {
@@ -29,7 +21,7 @@ pessoaRoutes.put("/:value", authenticate, async (req: Request, res: Response, ne
     }  
 });
 
-pessoaRoutes.delete("/", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+pessoaRoutes.delete("/:id", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         await pessoaController.deletePessoa(req, res);
     } catch (err) {

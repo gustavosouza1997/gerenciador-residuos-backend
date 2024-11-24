@@ -13,15 +13,7 @@ residuoRoutes.post("/", authenticate, async (req: Request, res: Response, next: 
     }  
 });
 
-residuoRoutes.get("/", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    try {
-        await residuoController.getResiduoByField(req, res);
-    } catch (err) {
-        next(err);
-    }  
-});
-
-residuoRoutes.put("/:value", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+residuoRoutes.put("/:id", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         await residuoController.updateResiduo(req, res);
     } catch (err) {

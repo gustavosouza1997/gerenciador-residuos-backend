@@ -5,12 +5,9 @@ import {
     collection,
     doc,
     addDoc,
-    getDoc,
     updateDoc,
     deleteDoc,
-    getDocs,
-    query,
-    where
+    getDocs
   } from "firebase/firestore";
 
   const collectionPessoa = collection(db, "pessoas");
@@ -21,62 +18,25 @@ export class PessoaDAO {
     await addDoc(collectionPessoa, pessoaData);
   }
 
-  private async findDocumentByField(fieldName: string, value: string) {
-    const q = query(collectionPessoa, where(fieldName, "==", value));
-    const querySnapshot = await getDocs(q);
+  async updatePessoa(id: string, pessoa: Partial<Pessoa>): Promise<void> {
+    const documentRef = doc(collectionPessoa, id);
 
-    if (!querySnapshot.empty) {
-      const doc = querySnapshot.docs[0]?.ref;
-      return doc ? doc.id : undefined;
-    } else {
-      console.log("Nenhum documento encontrado.");
-      return null;
+    try {
+      await updateDoc(documentRef, pessoa);
+      console.log("Pessoa atualizado com sucesso.");
+    } catch (error) {
+      console.error("Erro ao atualizar pessoa:", error);
     }
   }
 
-  async findPessoaByField(fieldName: string, value: string): Promise<Pessoa | null> {
-    const docRef = await this.findDocumentByField(fieldName, value);
+  async deletePessoa(id: string,): Promise<void> {
+    const documentRef = doc(collectionPessoa, id);
 
-    if (docRef) {
-      const docSnapshot = await getDoc(doc(collectionPessoa, docRef));
-      
-      const pessoaData = docSnapshot.data();
-      if (pessoaData) {
-        return {id: docSnapshot.id, ...pessoaData} as unknown as Pessoa;
-      }
-    }
-    return null;
-  }
-
-  async updatePessoa(fieldName: string, value: string, pessoa: Partial<Pessoa>): Promise<void> {
-    const q = query(collectionPessoa, where(fieldName, "==", value));
-    const querySnapshot = await getDocs(q);
-
-    if (!querySnapshot.empty) {
-      const documentRef = querySnapshot.docs[0]?.ref;
-      if (documentRef) {
-        await updateDoc(documentRef, pessoa);
-        console.log("Pessoa atualizada com sucesso.");
-      } else {
-        console.log("Pessoa não encontrada para atualização.");
-      }
-    }
-  }
-
-  async deletePessoa(fieldName: string, value: string): Promise<void> {
-    const q = query(collectionPessoa, where(fieldName, "==", value));
-    const querySnapshot = await getDocs(q);
-  
-    if (!querySnapshot.empty) {
-      const documentRef = querySnapshot.docs[0]?.ref;
-      if (documentRef) {
-        await deleteDoc(documentRef);
-        console.log("Pessoa excluída com sucesso.");
-      } else {
-        console.log("Pessoa não encontrada para exclusão.");
-      }
-    } else {
-      console.log("Nenhum documento encontrado para exclusão.");
+    try {
+      await deleteDoc(documentRef);
+      console.log("Pessoa excluída com sucesso.");
+    } catch (error) {
+      console.error("Erro ao excluir pessoa:", error);
     }
   }  
 

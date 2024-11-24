@@ -4,12 +4,9 @@ import {
     collection,
     doc,
     addDoc,
-    getDoc,
     updateDoc,
     deleteDoc,
-    getDocs,
-    query,
-    where
+    getDocs
   } from "firebase/firestore";
 
   const collectionVeiculo = collection(db, "veiculo");
@@ -20,62 +17,25 @@ export class VeiculoDAO {
     await addDoc(collectionVeiculo, VeiculoData);
   }
 
-  private async findDocumentByField(fieldName: string, value: string) {
-    const q = query(collectionVeiculo, where(fieldName, "==", value));
-    const querySnapshot = await getDocs(q);
+  async updateVeiculo(id: string, veiculo: Partial<Veiculo>): Promise<void> {
+    const documentRef = doc(collectionVeiculo, id);
 
-    if (!querySnapshot.empty) {
-      const doc = querySnapshot.docs[0]?.ref;
-      return doc ? doc.id : undefined;
-    } else {
-      console.log("Nenhum documento encontrado.");
-      return null;
-    }
-  }
-  
-  async findVeiculoByField(fieldName: string, value: string): Promise<Veiculo | null> {
-    const docRef = await this.findDocumentByField(fieldName, value);
-
-    if (docRef) {
-      const docSnapshot = await getDoc(doc(collectionVeiculo, docRef));
-      
-      const pessoaData = docSnapshot.data();
-      if (pessoaData) {
-        return {id: docSnapshot.id, ...pessoaData} as unknown as Veiculo;
-      }
-    }
-    return null;
-  }
-
-  async updateVeiculo(fieldName: string, value: string, veiculo: Partial<Veiculo>): Promise<void> {
-    const q = query(collectionVeiculo, where(fieldName, "==", value));
-    const querySnapshot = await getDocs(q);
-
-    if (!querySnapshot.empty) {
-      const documentRef = querySnapshot.docs[0]?.ref;
-      if (documentRef) {
-        await updateDoc(documentRef, veiculo);
-        console.log("Veiculo atualizado com sucesso.");
-      } else {
-        console.log("Veiculo não encontrado para atualização.");
-      }
+    try {
+      await updateDoc(documentRef, veiculo);
+      console.log("Veículo atualizado com sucesso.");
+    } catch (error) {
+      console.error("Erro ao atualizar veículo:", error);
     }
   }
 
-  async deleteVeiculo(fieldName: string, value: string): Promise<void> {
-    const q = query(collectionVeiculo, where(fieldName, "==", value));
-    const querySnapshot = await getDocs(q);
-  
-    if (!querySnapshot.empty) {
-      const documentRef = querySnapshot.docs[0]?.ref;
-      if (documentRef) {
-        await deleteDoc(documentRef);
-        console.log("Veiculo excluído com sucesso.");
-      } else {
-        console.log("Veiculo não encontrado para exclusão.");
-      }
-    } else {
-      console.log("Nenhum documento encontrado para exclusão.");
+  async deleteVeiculo(id: string): Promise<void> {
+    const documentRef = doc(collectionVeiculo, id);
+
+    try {
+      await deleteDoc(documentRef);
+      console.log("Veículo excluído com sucesso.");
+    } catch (error) {
+      console.error("Erro ao excluir veículo:", error);
     }
   }
 

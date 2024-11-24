@@ -13,15 +13,8 @@ veiculosRoutes.post("/", authenticate, async (req: Request, res: Response, next:
     }  
 });
 
-veiculosRoutes.get("/", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    try {
-        await veiculoController.getVeiculoByField(req, res);
-    } catch (err) {
-        next(err);
-    }  
-});
 
-veiculosRoutes.put("/", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+veiculosRoutes.put("/:id", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         await veiculoController.updateVeiculo(req, res);
     } catch (err) {
@@ -29,7 +22,7 @@ veiculosRoutes.put("/", authenticate, async (req: Request, res: Response, next: 
     }  
 });
 
-veiculosRoutes.delete("/", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+veiculosRoutes.delete("/:id", authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         await veiculoController.deleteVeiculo(req, res);
     } catch (err) {

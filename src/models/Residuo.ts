@@ -1,6 +1,7 @@
 export class Residuo {
     quantidade: number;
     nomeResiduo: string;
+    codigoResiduo: string;
     codigoAcondicionamento: number;
     codigoClasse: number;
     codigoTecnologia: number;
@@ -11,9 +12,10 @@ export class Residuo {
     dataEnvio?: Date;
     codManifesto?: number;
 
-    constructor (quantidade: number, nomeResiduo: string, codigoAcondicionamento: number, codigoClasse: number, codigoTecnologia: number, codigoTipoEstado: number, codigoUnidade: number, manifestoItemObservacao: string, dataCriacao: Date, dataEnvio: Date, codManifesto: number) {
+    constructor (quantidade: number, nomeResiduo: string, codigoResiduo: string, codigoAcondicionamento: number, codigoClasse: number, codigoTecnologia: number, codigoTipoEstado: number, codigoUnidade: number, manifestoItemObservacao: string, dataCriacao: Date, dataEnvio: Date, codManifesto: number) {
         this.quantidade = quantidade;
         this.nomeResiduo = nomeResiduo;
+        this.codigoResiduo = codigoResiduo;
         this.codigoAcondicionamento = codigoAcondicionamento;
         this.codigoClasse = codigoClasse;
         this.codigoTecnologia = codigoTecnologia;
@@ -29,6 +31,7 @@ export class Residuo {
         return {
             quantidade: this.quantidade,
             nomeResiduo: this.nomeResiduo,
+            codigoResiduo: this.codigoResiduo,
             codigoAcondicionamento: this.codigoAcondicionamento,
             codigoClasse: this.codigoClasse,
             codigoTecnologia: this.codigoTecnologia,

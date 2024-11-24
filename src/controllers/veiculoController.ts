@@ -14,38 +14,29 @@ export class VeiculoController {
     return res.status(201).json(createdVeiculo);
   }
 
-  public async getVeiculoByField(req: Request, res: Response): Promise<Response> {
-    const { field, value } = req.body;
-
-    if (!field || !value) {
-      res.status(400).json({ error: "É necessário informar um campo e valor" });
-    }
-
-    const veiculo = await this.veiculoDAO.findVeiculoByField(field, value);
-    return veiculo ? res.json(veiculo) : res.status(404).json({ error: "Veiculo not found" });
-  }
-
   public async updateVeiculo(req: Request, res: Response): Promise<Response> {
-    const { field, value } = req.body;
+    const { id } = req.params;
 
-    if (!field || !value) {
-      res.status(400).json({ error: "É necessário informar um campo e valor" });
+    if (id) {
+      const veiculoUpdates = req.body;
+      await this.veiculoDAO.updateVeiculo(id, veiculoUpdates);
+    } else {
+      return res.status(400).json({ error: "É necessário informar um id válido" });
     }
-    
-    const veiculoUpdates = req.body;
-    await this.veiculoDAO.updateVeiculo(field, value, veiculoUpdates);
-    return res.status(204).send();
+       
+    return res.status(200).send();
   }
 
   public async deleteVeiculo(req: Request, res: Response): Promise<Response> {
-    const { field, value } = req.body;
+    const { id } = req.params;
     
-    if (!field || !value) {
-      res.status(400).json({ error: "É necessário informar um campo e valor" });
+    if (id) {
+      await this.veiculoDAO.deleteVeiculo(id);
+    } else {
+      return res.status(400).json({ error: "É necessário informar um id válido" });
     }
-
-    await this.veiculoDAO.deleteVeiculo(field, value);
-    return res.status(204).send();
+    
+    return res.status(200).send();
   }
 
   public async getAllVeiculos(req: Request, res: Response): Promise<Response> {

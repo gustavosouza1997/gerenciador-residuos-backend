@@ -12,30 +12,6 @@ export class PessoaFisica extends Pessoa {
         this.motorista = motorista;
     }
 
-    // getNome(): string {
-    //     return this.nome;
-    // }
-
-    // setNome(nome: string): void {
-    //     this.nome = nome;
-    // }
-
-    // getCpf(): string {
-    //     return this.cpf;
-    // }
-
-    // setCpf(cpf: string): void {
-    //     this.cpf = cpf;
-    // }
-
-    // isMotorista(): boolean {
-    //     return this.motorista;
-    // }
-
-    // setMotorista(motorista: boolean): void {
-    //     this.motorista = motorista;
-    // }
-
     public toPlainObject(): object {
         return {
             ...super.toPlainObject(),

@@ -6,7 +6,7 @@ import { PessoaJuridica } from "../models/PessoaJuridica";
 export class PessoaController {
   private pessoaDAO = new PessoaDAO();
 
-  public async createPessoa(req: Request, res: Response): Promise<void> {
+  public async createPessoa(req: Request, res: Response): Promise<Response> {
     const { endereco, telefone, email, nome, cpf, razaoSocial, cnpj, transportador, destinador, gerador, motorista } = req.body;
 
     let createdPessoa;
@@ -18,52 +18,39 @@ export class PessoaController {
       const pessoa: PessoaJuridica = new PessoaJuridica(razaoSocial, cnpj, endereco, telefone, email, transportador, gerador, destinador);
       createdPessoa = await this.pessoaDAO.createPessoa(pessoa);
     } else {
-      res.status(400).json({ error: "CPF or CNPJ é obrigatório" });
+      return res.status(400).json({ error: "CPF or CNPJ é obrigatório" });
     }
     
-    res.status(201).json(createdPessoa);
+    return res.status(201).json(createdPessoa);
   }
 
-  public async getPessoaByField(req: Request, res: Response): Promise<void> {
-    const { field, value } = req.body;
+  public async updatePessoa(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
 
-    if (!field || !value) {
-      res.status(400).json({ error: "É necessário informar um campo e valor" });
+    if (id) {
+      const pessoaUpdates = req.body;
+      await this.pessoaDAO.updatePessoa(id, pessoaUpdates);
+    } else {
+      return res.status(400).json({ error: "É necessário informar um id válido" });
     }
-
-    const pessoa = await this.pessoaDAO.findPessoaByField(field, value);
-    pessoa ? res.json(pessoa) : res.status(404).json({ error: "Pessoa not found" });
-  }
-
-  public async updatePessoa(req: Request, res: Response): Promise<void> {
-    const { field, value } = req.body;
-    
-    if (!field || !value) {
-      res.status(400).json({ error: "É necessário informar um campo e valor" });
-    }
-    const PessoaUpdates = req.body;
-    await this.pessoaDAO.updatePessoa(field, value, PessoaUpdates);
-    res.status(204).send();
+       
+    return res.status(200).send();
   }
   
-  public async deletePessoa(req: Request, res: Response): Promise<void> {
-    const { field, value } = req.body;
+  public async deletePessoa(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
     
-    if (!field || !value) {
-      res.status(400).json({ error: "É necessário informar um campo e valor" });
+    if (id) {
+      await this.pessoaDAO.deletePessoa(id);
+    } else {
+      return res.status(400).json({ error: "É necessário informar um id válido" });
     }
-  
-    try {
-      await this.pessoaDAO.deletePessoa(field, value);
-      res.status(204).send();  // Resposta para exclusão bem-sucedida
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: "Erro ao excluir pessoa." });
-    }
+    
+    return res.status(200).send();
   }
 
-  public async getAllPessoas(req: Request, res: Response): Promise<void> {
+  public async getAllPessoas(req: Request, res: Response): Promise<Response> {
     const Pessoas = await this.pessoaDAO.getAllPessoas();
-    res.json(Pessoas);
+    return res.json(Pessoas);
   }
 }
