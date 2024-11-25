@@ -7,15 +7,15 @@ export class PessoaController {
   private pessoaDAO = new PessoaDAO();
 
   public async createPessoa(req: Request, res: Response): Promise<Response> {
-    const { endereco, telefone, email, nome, cpf, razaoSocial, cnpj, transportador, destinador, gerador, motorista } = req.body;
+    const { endereco, uf, municipio, telefone, email, nome, cpf, razaoSocial, cnpj, transportador, destinador, gerador, motorista } = req.body;
 
     let createdPessoa;
 
     if (cpf && !cnpj) {
-      const pessoa: PessoaFisica = new PessoaFisica(nome, cpf, endereco, telefone, email, transportador, gerador, destinador, motorista);
+      const pessoa: PessoaFisica = new PessoaFisica(nome, cpf, endereco, uf, municipio, telefone, email, transportador, gerador, destinador, motorista);
       createdPessoa = await this.pessoaDAO.createPessoa(pessoa);
     } else if (cnpj && !cpf) {
-      const pessoa: PessoaJuridica = new PessoaJuridica(razaoSocial, cnpj, endereco, telefone, email, transportador, gerador, destinador);
+      const pessoa: PessoaJuridica = new PessoaJuridica(razaoSocial, cnpj, endereco, uf, municipio, telefone, email, transportador, gerador, destinador);
       createdPessoa = await this.pessoaDAO.createPessoa(pessoa);
     } else {
       return res.status(400).json({ error: "CPF or CNPJ é obrigatório" });
