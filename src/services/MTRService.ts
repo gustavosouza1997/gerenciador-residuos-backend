@@ -1,6 +1,7 @@
 import axios from "axios";
 import { LoteManifestoJSON } from "../models/Manifesto/LoteManifestoJSON";
 import { ResiduoDTO, ClasseDTO, EstadoFisicoDTO, AcondicionamentoDTO, TecnologiaDestinacaoDTO, UnidadeDTO } from "../models/Residuos";	
+import { ManifestoJSONDto } from "../models/Manifesto/ManifestoJSONDto";
 
 interface ApiResponse {
     codigo: number;
@@ -82,9 +83,69 @@ class MTRService {
         return result || [];
     }
 
-    async enviarLoteManifesto(login: string, senha: string, cnp: string): Promise<LoteManifestoJSON[]> {
-        const result = await this.postRequest<LoteManifestoJSON[]>("salvarManifestoLote", login, senha, cnp);
-        return result || [];
+    async enviarLoteManifesto(
+        login: string, 
+        senha: string,
+        cnp: string, 
+        manifestos: ManifestoJSONDto[]
+    ): Promise<LoteManifestoJSON> {
+        try {
+            // Construir o corpo da requisição com as chaves como strings
+            const requestBody = {
+                "login": login,
+                "senha": senha,
+                "cnp": cnp,
+                "manifestoJSONDtos": manifestos.map(manifesto => ({
+                    "seuCodigoReferencia":"123456", 
+                    "cnpTransportador": manifesto.cnpTransportador,
+                    "codUnidadeTransportador": manifesto.codUnidadeTransportador,
+                    "cnpDestinador": manifesto.cnpDestinador,
+                    "codUnidadeDestinador": manifesto.codUnidadeDestinador,
+                    "manifTransportadorDataExpedicao": manifesto.manifTransportadorDataExpedicao,
+                    "manifTransportadorNomeMotorista": manifesto.manifTransportadorNomeMotorista,
+                    "manifTransportadorPlacaVeiculo": manifesto.manifTransportadorPlacaVeiculo,
+                    "manifGeradorNomeResponsavel": manifesto.manifGeradorNomeResponsavel,
+                    "manifGeradorCargoResponsavel": manifesto.manifGeradorCargoResponsavel,
+                    "itemManifestoJSONs": manifesto.itemManifestoJSONs
+                }))
+            };
+
+            console.log('Request body formatado:', JSON.stringify(requestBody, null, 2));
+
+            const response = await axios.post<LoteManifestoJSON>(
+                //`https://miramichi.procergs.com.br/mtrservice/salvarManifestoLote`,
+                `${this.apiUrl}/salvarManifestoLote`,
+                requestBody,
+                { 
+                    headers: { 
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    }
+                }
+            );
+
+            if (response.status === 200 && response.data.manifestoJSONDtos) {
+                console.log('response.data', response.data);
+                return response.data;
+            }
+            
+            throw new Error(
+                response.status === 200
+                    ? `Erro ao enviar lote de manifestos: ${JSON.stringify(response.data)}`
+                    : `Erro ${response.status}: ${response.statusText}`
+            );
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                console.error("Erro ao consultar a API MTR:", {
+                    status: error.response?.status,
+                    data: error.response?.data,
+                    message: error.message
+                });
+            } else {
+                console.error("Erro ao consultar a API MTR:", error);
+            }
+            throw error;
+        }
     }
 }
 

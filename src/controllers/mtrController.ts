@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import MTRService from "../services/MTRService";
+import { ManifestoJSONDto } from "../models/Manifesto/ManifestoJSONDto";
 
 export class MTRController {
     private mtrService = new MTRService("production");
@@ -44,7 +45,25 @@ export class MTRController {
         return this.handleRequest(req, res, this.mtrService.retornaListaUnidade, "Erro ao consultar unidades");
     }
 
-    public enviarManifesto(req: Request, res: Response): Promise<Response> {
-        return this.handleRequest(req, res, this.mtrService.enviarLoteManifesto, "Erro ao enviar o manifesto");
+    public async enviarManifesto(req: Request, res: Response): Promise<Response> {
+        const { login, senha, cnp, manifestoJSONDtos } = req.body;
+
+        // Validação dos campos obrigatórios
+        if (!login || !senha || !cnp || !manifestoJSONDtos) {
+            return res.status(400).json({ 
+                message: "Campos obrigatórios não fornecidos", 
+                required: ["login", "senha", "cnp", "manifestoJSONDtos"] 
+            });
+        }
+        try {
+            const result = await this.mtrService.enviarLoteManifesto(login, senha, cnp, manifestoJSONDtos);
+            return res.status(200).json(result);
+        } catch (error) {
+            console.error("Erro ao enviar manifesto:", error);
+            return res.status(500).json({
+                message: "Erro ao enviar o manifesto", 
+                error: (error as Error).message 
+            });
+        }
     }
 }
